@@ -234,10 +234,12 @@ YAAMP_JOB_TEMPLATE *coind_create_template(YAAMP_COIND *coind)
 		return coind_create_template_memorypool(coind);
 
 	char params[512] = "[{}]";
-	if(!strcmp(coind->symbol, "PPC")) strcpy(params, "[]");
+	if (!strcmp(coind->symbol, "LTC")) strcpy(params, "'{\"rules\":[\"mweb\", \"segwit\"]}'");
 	else if(g_stratum_segwit) strcpy(params, "[{\"rules\":[\"segwit\"]}]");
+	else (strcpy(params, "[]"));
 
-	json_value *json = rpc_call(&coind->rpc, "getblocktemplate", params);
+	json_value* json = rpc_call(&coind->rpc, "getblocktemplate", params);
+	
 	if(!json || json_is_null(json))
 	{
 		// coind_error() reset auto_ready, and DCR gbt can fail

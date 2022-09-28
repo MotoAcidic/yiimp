@@ -126,12 +126,14 @@ function BackendCoinsUpdate()
 		}
 
         // Change for segwit
-        if ($coin->usesegwit) {
-            $template = $remote->getblocktemplate('{"rules":["segwit"]}');
-        } else {
+        if ($coin->usesegwit && $coin->symbol == 'LTC') {
+            $template = $remote->getblocktemplate('{"rules": ["mweb", "segwit"]}');
+        } else if($coin->usesegwit && $coin->symbol != 'LTC') {
+			$template = $remote->getblocktemplate('{"rules": ["segwit"]}');
+		}else {
             $template = $remote->getblocktemplate('{}');
         }
-        // Change for segwit end
+		// Change for segwit end
 
 		if($template && isset($template['coinbasevalue']))
 		{
