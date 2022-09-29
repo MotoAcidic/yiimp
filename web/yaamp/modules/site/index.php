@@ -295,8 +295,6 @@ td.symb {
 		</td>
 	</tr>
 </table>
-<!-- Footer -->
-<div class="footer"><p>&copy; 2019 Coin Pool Services - All Rights Reserved</p></div>
 
 <script>
 function page_refresh()
